@@ -1,0 +1,93 @@
+  <!DOCTYPE html>
+  <html lang="vi">
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="icon" href="https://myquynh15.github.io/STT46_22682851_ChauMyQuynh_BaiTapLon/images/logo.png" sizes="128x128" type="image/png">
+      <title>Trang Chủ</title>
+      <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+      />
+      <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+      <link rel="stylesheet" href="https://myquynh15.github.io/STT46_22682851_ChauMyQuynh_BaiTapLon/css/styles.css" />
+    </head>
+    <body>
+      <div id="nav"></div>
+      <div id="header"></div>
+      <div id="main"></div>
+      <div id="footer"></div>
+    </body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script src="https://myquynh15.github.io/STT46_22682851_ChauMyQuynh_BaiTapLon/js/main.js"></script>
+    <script>
+      $(window).on('load', function() {
+        $("#nav").load("https://myquynh15.github.io/STT46_22682851_ChauMyQuynh_BaiTapLon/html/nav.html", function() {
+            updateUserSection();
+            handleCategoryClick();
+        });
+      });
+      loadContent("header", "https://myquynh15.github.io/STT46_22682851_ChauMyQuynh_BaiTapLon/html/header.html");
+      function setupCartButtons() {
+        const cartButtons = document.querySelectorAll('.btn-cart');
+        cartButtons.forEach(button => {
+            button.addEventListener('click', function(event) {
+                event.preventDefault();
+                const productCard = button.closest('.product-item');
+                const title = productCard.querySelector('.card-title').innerText;
+                const price = parseFloat(productCard.querySelector('.price').innerText.replace(/[^0-9.-]+/g, ""));
+                const image = productCard.querySelector('.card-img-top').src;
+      
+                let cart = JSON.parse(localStorage.getItem('cart')) || [];
+                const existingProduct = cart.find(item => item.title === title);
+                if (existingProduct) {
+                    existingProduct.quantity++;
+                } else {
+                    cart.push({ title, price, image, quantity: 1 });
+                }
+      
+                localStorage.setItem('cart', JSON.stringify(cart));
+                updateCartCount();
+                const notification = document.getElementById('notification');
+                notification.style.display = 'block';
+                setTimeout(() => notification.style.display = 'none', 3000);
+            });
+        });
+      }
+      function updateCartCount() {
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
+        document.getElementById('cartCount').innerText = cartCount;
+      }
+      const params = new URLSearchParams(window.location.search);
+      const query = params.get("q");
+
+      if (query) {
+        displaySearchResults(query);
+      } else {
+        loadContent("main", "https://myquynh15.github.io/STT46_22682851_ChauMyQuynh_BaiTapLon/html/trangchu.html");
+      }
+      function displaySearchResults(query) {
+        const products = document.querySelectorAll(".product-item");
+        let found = false;
+        const resultsContainer = document.getElementById("main");
+        resultsContainer.innerHTML = `<h1>Kết quả tìm kiếm cho: <strong>${query}</strong></h1>`;
+
+        products.forEach((item) => {
+          const title = item
+            .querySelector(".card-title")
+            .textContent.toLowerCase();
+          if (title.includes(query.toLowerCase())) {
+            found = true;
+            resultsContainer.appendChild(item.cloneNode(true));
+          }
+        });
+
+        if (!found) {
+          resultsContainer.innerHTML += "<p>Không tìm thấy sản phẩm nào.</p>";
+        }
+      }
+      loadContent("footer", "https://myquynh15.github.io/STT46_22682851_ChauMyQuynh_BaiTapLon/html/footer.html");
+    </script>
+  </html>

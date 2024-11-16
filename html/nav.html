@@ -1,0 +1,50 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand">
+      <img src="https://myquynh15.github.io/STT46_22682851_ChauMyQuynh_BaiTapLon/images/logo.png" alt="MQFRUIT Logo" style="width:50px; height: auto;">
+    </a>
+      <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="https://myquynh15.github.io/STT46_22682851_ChauMyQuynh_BaiTapLon/index.html"
+            >Trang chủ</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://myquynh15.github.io/STT46_22682851_ChauMyQuynh_BaiTapLon/html/gioithieu.html">Giới thiệu</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://myquynh15.github.io/STT46_22682851_ChauMyQuynh_BaiTapLon/html/lienhe.html">Liên hệ</a>
+        </li>
+      <a href="https://myquynh15.github.io/STT46_22682851_ChauMyQuynh_BaiTapLon/html/giohang.html" class="btn btn-info ms-2">Giỏ hàng (<span id="cartCount">0</span>)</a>
+      </ul>
+      <form
+        id="searchForm"
+        class="d-flex"
+        onsubmit="return handleSearch(event)"
+      >
+        <input
+          class="form-control me-2"
+          type="search"
+          placeholder="Tìm kiếm sản phẩm"
+          aria-label="Search"
+          id="searchInput"
+        />
+        <button type="submit" class="btn btn-primary">
+          <i class="fas fa-search"></i>
+        </button>
+      </form>
+      <div id="userSection"></div>
+    </div>
+  </div>
+</nav>
